@@ -20,7 +20,7 @@ public final class Logindelay extends JavaPlugin {
         if(getConfig().getString("ErrorMessage") == null)
             getConfig().set("ErrorMessage", "§4You are not allowed to join try in %%seconds%% seconds");
         if(getConfig().get("Delay") == null)
-            getConfig().set("Delay", 10L);
+            getConfig().set("Delay", 5L);
         instance.saveConfig();
         new Registry();
     }

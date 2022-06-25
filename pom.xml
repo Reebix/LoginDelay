@@ -6,10 +6,10 @@
 
     <groupId>com.rebix</groupId>
     <artifactId>logindelay</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>Logindelay</name>
+    <name>LoginDelay</name>
 
     <properties>
         <java.version>1.8</java.version>
