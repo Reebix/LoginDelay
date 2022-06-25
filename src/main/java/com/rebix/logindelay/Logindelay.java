@@ -18,7 +18,7 @@ public final class Logindelay extends JavaPlugin {
     public void onEnable() {
         instance = this;
         if(getConfig().getString("ErrorMessage") == null)
-            getConfig().set("ErrorMessage", "§4You are not allowed to join try in %%seconds%% seconds");
+            getConfig().set("ErrorMessage", "§4You are not allowed to join try in §l%%seconds%% seconds§4 and try again.");
         if(getConfig().get("Delay") == null)
             getConfig().set("Delay", 5L);
         instance.saveConfig();
