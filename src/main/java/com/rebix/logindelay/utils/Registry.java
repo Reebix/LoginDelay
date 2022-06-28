@@ -10,5 +10,7 @@ public class Registry {
     public Registry() {
         Bukkit.getPluginManager().registerEvents(new onPlayerJoinEvent(), Logindelay.instance);
         Bukkit.getPluginManager().registerEvents(new onPlayerLeaveEvent(), Logindelay.instance);
+
+        SecondTicking.start();
     }
 }

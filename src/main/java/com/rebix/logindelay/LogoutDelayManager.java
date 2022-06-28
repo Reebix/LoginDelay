@@ -1,5 +1,6 @@
 package com.rebix.logindelay;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 
@@ -12,7 +13,7 @@ import java.util.UUID;
 
 public class LogoutDelayManager {
 
-    public static HashMap<UUID, LocalTime> playerTimeHashMap = new HashMap<>();
+    public static HashMap<UUID, Integer> playerTimeHashMap = new HashMap<>();
 
     public LogoutDelayManager() {
 
@@ -21,27 +22,30 @@ public class LogoutDelayManager {
     public boolean isPlayerAllowedToJoin(Player player) {
         if (!playerTimeHashMap.containsKey(player.getUniqueId()) || player.hasPermission("logindelay.bypass"))
             return true;
-        Long delay = Long.valueOf(Objects.requireNonNull(Logindelay.instance.getConfig().getString("Delay")));
-        System.out.println(delay);
-        LocalTime currentTime = LocalTime.now();
-        LocalTime lastTime = getPlayerTime(player).plus(delay, ChronoUnit.SECONDS);
-
-        if(currentTime.isAfter(lastTime)) {
-            removePlayerTime(player);
-            return true;
-        }
         return false;
     }
 
-    public void setPlayerTime(Player player, LocalTime time) {
+    public void setPlayerTime(Player player, Integer time) {
         playerTimeHashMap.put(player.getUniqueId(), time);
     }
 
-    public LocalTime getPlayerTime(Player player) {
+    public Integer getPlayerTime(Player player) {
         return playerTimeHashMap.get(player.getUniqueId());
     }
 
-    public void removePlayerTime(Player player) {
-        playerTimeHashMap.remove(player);
+    public void countdown(UUID player) {
+        if (playerTimeHashMap.containsKey(player)) {
+            int time = playerTimeHashMap.get(player);
+            if (time > 0) {
+                playerTimeHashMap.put(player, time - 1);
+            } else {
+                playerTimeHashMap.remove(player);
+            }
+        }
+    }
+
+    public void tick() {
+        for (UUID uuid : playerTimeHashMap.keySet())
+            countdown(uuid);
     }
 }
