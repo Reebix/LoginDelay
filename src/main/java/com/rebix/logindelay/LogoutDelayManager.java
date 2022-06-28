@@ -19,7 +19,7 @@ public class LogoutDelayManager {
     }
 
     public boolean isPlayerAllowedToJoin(Player player) {
-        if (!playerTimeHashMap.containsKey(player.getUniqueId()))
+        if (!playerTimeHashMap.containsKey(player.getUniqueId()) || player.hasPermission("logindelay.bypass"))
             return true;
         Long delay = Long.valueOf(Objects.requireNonNull(Logindelay.instance.getConfig().getString("Delay")));
         System.out.println(delay);
